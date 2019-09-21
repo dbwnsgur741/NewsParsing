@@ -10,7 +10,6 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -28,7 +27,8 @@ public class MainActivity extends AppCompatActivity {
     private ImageView leftImg;
     private ImageView rightImg;
     private static int cnt = 1;
-    private String htmlPageUrl ="http://search.daum.net/search?nil_suggest=btn&w=news&DA=PGD&cluster=y&q=미세 플라스틱&p="+cnt; //파싱할 홈페이지의 URL주소
+    private static String category;
+     //파싱할 홈페이지의 URL주소
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +38,9 @@ public class MainActivity extends AppCompatActivity {
         leftImg = (ImageView)findViewById( R.id.left_img );
         rightImg = (ImageView)findViewById( R.id.right_img );
 
+        Intent intent = getIntent();
+        this.category = intent.getStringExtra( "index" );
+
         new Description().execute();
 
         leftImg.setOnClickListener( new View.OnClickListener() {
@@ -45,11 +48,17 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(cnt >1){
                     Intent intent = new Intent( getApplicationContext(), MainActivity.class );
+                    intent.putExtra( "index",category );
                     cnt -= 1;
                     startActivity( intent );
                     finish();
                 }else{
+                    Intent intent1 = new Intent( getApplicationContext(),ListViewActivity.class );
+                    startActivity( intent1 );
+                    finish();
+                    /*
                     Toast.makeText(getApplicationContext(),"첫 페이지 입니다.",Toast.LENGTH_SHORT).show();
+                    */
                 }
             }
         });
@@ -58,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent( getApplicationContext(), MainActivity.class );
+                intent.putExtra( "index",category );
                 cnt += 1;
                 startActivity( intent );
                 finish();
@@ -66,10 +76,16 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
+
     private class Description extends AsyncTask<Void, Void, Void> {
 
         //진행바표시
         private ProgressDialog progressDialog;
+        private String htmlPageUrl ="http://search.daum.net/search?nil_suggest=btn&w=news&DA=PGD&cluster=y&q="+category+"&p="+cnt;
 
         @Override
         protected Void doInBackground(Void... voids) {
@@ -115,6 +131,7 @@ public class MainActivity extends AppCompatActivity {
             recyclerView.setAdapter(myAdapter);
             progressDialog.dismiss();
         }
+
     }
 
     }
