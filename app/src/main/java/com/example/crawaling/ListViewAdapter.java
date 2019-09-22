@@ -50,9 +50,7 @@ public class ListViewAdapter extends BaseAdapter {
 
     public void addItem(String title){
         ListViewItem listViewItem = new ListViewItem();
-
         listViewItem.setTitle(title);
-
         mitems.add(listViewItem);
     }
 }

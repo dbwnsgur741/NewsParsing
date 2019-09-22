@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:id="@+id/default_layout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:elevation="5dp"
+        android:id="@+id/msq_detail_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:titleTextColor="#000000">
+
+        <TextView
+            android:id="@+id/msq_detail_toolbar_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="#000000"
+            android:fontFamily="@font/seoulhangangcb"
+            android:textSize="18sp"
+            android:text="환경오염이란?"/>
+    </android.support.v7.widget.Toolbar>
+
+    <View
+        android:layout_marginTop="53dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:id="@+id/toolbar_shadow"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="@drawable/toolbar_dropshadow" />
+
+    <TextView
+        android:lineSpacingExtra="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="150dp"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="30sp"
+        android:fontFamily="@font/seoulhangangcb"
+        android:id="@+id/msq_detail_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="환경오염이란?"/>
+
+    <TextView
+        android:id="@+id/msq_detail_textview2"
+        android:gravity="center"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:fontFamily="@font/seoulhangangcb"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="250dp"
+        android:textSize="15sp"
+        android:textColor="#000000"
+        android:lineSpacingExtra="15dp"
+        android:text="'환경오염' 이란 사업활동 및 그 밖의 사람의 활동에 의하여 발생하는
+대기오염, 수질오염, 토양오염, 해양오염, 방사능 오염, 소음 및 진동,
+악취, 일조 방해, 인공조명에 의한 빛공해 등으로서 사람의 건강이나 환경에 피해를 주는 상태를 말한다." />
+    <TextView
+        android:gravity="center"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:fontFamily="@font/seoulhangangcb"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="450dp"
+        android:textSize="10sp"
+        android:textColor="#000000"
+        android:lineSpacingExtra="15dp"
+        android:text="(-환경정책기본법 제 3조의 4)" />
+
+    <ImageView
+        android:id="@+id/first_IV"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="center"
+        android:background="@drawable/ic_chevron_right_black_24dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp" />
+
+</RelativeLayout>

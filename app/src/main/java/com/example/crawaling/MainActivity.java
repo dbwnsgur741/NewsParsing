@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         this.category = intent.getStringExtra( "index" );
+        Log.d("#####",category);
 
         new Description().execute();
 
@@ -53,8 +54,6 @@ public class MainActivity extends AppCompatActivity {
                     startActivity( intent );
                     finish();
                 }else{
-                    Intent intent1 = new Intent( getApplicationContext(),ListViewActivity.class );
-                    startActivity( intent1 );
                     finish();
                     /*
                     Toast.makeText(getApplicationContext(),"첫 페이지 입니다.",Toast.LENGTH_SHORT).show();
