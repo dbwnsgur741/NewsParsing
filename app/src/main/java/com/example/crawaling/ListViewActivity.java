@@ -29,7 +29,7 @@ public class ListViewActivity extends AppCompatActivity {
     private static String[] ListStringArray2;
     private static String[] ListStringArray3;
     private static String[] ListStringArray4;
-    private String[] strings = new String[2];
+    private String[] strings = new String[7];
     private OpenApi openApi;
 
     @Override
@@ -77,21 +77,26 @@ public class ListViewActivity extends AppCompatActivity {
         switch (string){
             case "대기오염":
                 strings = ListStringArray1;
-                new OpenApi().execute(  );
+                mListViewAdapter.addItem( strings[1],strings[2] );
+                mListViewAdapter.addItem( strings[3],strings[4] );
+                new GetXMLTask().execute();
                 break;
             case "수질오염":
                 strings = ListStringArray2;
+                mListViewAdapter.addItem( strings[1],strings[2] );
+                mListViewAdapter.addItem( strings[3],strings[4] );
+                mListViewAdapter.addItem( strings[5],strings[6] );
                 break;
             case "토양오염":
                 strings = ListStringArray3;
+                mListViewAdapter.addItem( strings[1],strings[2] );
+                mListViewAdapter.addItem( strings[3],strings[4] );
                 break;
             case "기타오염":
                 strings = ListStringArray4;
+                mListViewAdapter.addItem( strings[1],strings[2] );
+                mListViewAdapter.addItem( strings[3],strings[4] );
                 break;
-        }
-
-        for(int i =1 ; i<strings.length; i++){
-            mListViewAdapter.addItem( strings[i] );
         }
 
         mListView.setAdapter( mListViewAdapter );
@@ -108,10 +113,23 @@ public class ListViewActivity extends AppCompatActivity {
                         break;
                     case 1:
                         intent = new Intent( getApplicationContext(), MainActivity.class );
-                        intent.putExtra( "index", strings[2]);
+                        intent.putExtra( "index", strings[3]);
                         startActivity( intent );
                         finish();
                         break;
+                    case 2:
+                        if(string.equals( "대기오염" )){
+                           intent = new Intent( getApplicationContext(), InfoAtmosActivity.class );
+                           startActivity( intent );
+                           finish();
+                           break;
+                        }else{
+                            intent = new Intent( getApplicationContext(), MainActivity.class );
+                            intent.putExtra( "index", strings[5]);
+                            startActivity( intent );
+                            finish();
+                            break;
+                        }
                 }
             }
         } );
@@ -165,12 +183,11 @@ public class ListViewActivity extends AppCompatActivity {
                 bufferedReader = new BufferedReader( new InputStreamReader( urlConnection.getInputStream(),"UTF-8" ) );
                 String result = "";
                 String line;
+
                 while((line = bufferedReader.readLine()) != null) {
                     result = result + line + "\n";
                 }
-                Log.d("@@@@@@@@2",result);
             } catch (Exception e) {
-                Log.d("111111", String.valueOf( e ) );
                 e.printStackTrace();
             }
             return null;

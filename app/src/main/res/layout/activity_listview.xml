@@ -49,10 +49,10 @@
     <ListView
         android:layout_marginTop="150dp"
         android:id="@+id/listView"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:divider="@android:color/transparent"
-        android:dividerHeight="10.0sp">
+        android:dividerHeight="20.0sp">
     </ListView>
 
 </RelativeLayout>

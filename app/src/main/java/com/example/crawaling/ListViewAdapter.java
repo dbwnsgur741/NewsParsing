@@ -39,18 +39,21 @@ public class ListViewAdapter extends BaseAdapter {
         }
 
         TextView textView = (TextView) convertView.findViewById( R.id.listView_textView );
+        TextView textView1 = (TextView) convertView.findViewById( R.id.listView_desc_TextView );
         ImageView imageView = (ImageView)convertView.findViewById( R.id.listView_imageView );
 
         ListViewItem listViewItem = (ListViewItem) getItem( position );
 
         textView.setText( listViewItem.getTitle() );
+        textView1.setText( listViewItem.getDesc() );
 
         return convertView;
     }
 
-    public void addItem(String title){
+    public void addItem(String title,String desc){
         ListViewItem listViewItem = new ListViewItem();
         listViewItem.setTitle(title);
+        listViewItem.setDesc(desc);
         mitems.add(listViewItem);
     }
 }
