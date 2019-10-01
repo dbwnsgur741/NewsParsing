@@ -10,15 +10,12 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-
 import java.io.IOException;
 import java.util.ArrayList;
-
 
 public class MainActivity extends AppCompatActivity {
 
@@ -120,8 +117,8 @@ public class MainActivity extends AppCompatActivity {
             progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
             progressDialog.setMessage("잠시 기다려 주세요.");
             progressDialog.show();
-
         }
+
         @Override
         protected void onPostExecute(Void result) {
             MyAdapter myAdapter = new MyAdapter(list,getApplicationContext());
@@ -130,7 +127,5 @@ public class MainActivity extends AppCompatActivity {
             recyclerView.setAdapter(myAdapter);
             progressDialog.dismiss();
         }
-
     }
-
-    }
+}

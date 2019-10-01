@@ -13,7 +13,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -79,7 +78,7 @@ public class ListViewActivity extends AppCompatActivity {
                 strings = ListStringArray1;
                 mListViewAdapter.addItem( strings[1],strings[2] );
                 mListViewAdapter.addItem( strings[3],strings[4] );
-                new GetXMLTask().execute();
+                mListViewAdapter.addItem( strings[5],strings[6] );
                 break;
             case "수질오염":
                 strings = ListStringArray2;
@@ -119,7 +118,7 @@ public class ListViewActivity extends AppCompatActivity {
                         break;
                     case 2:
                         if(string.equals( "대기오염" )){
-                           intent = new Intent( getApplicationContext(), InfoAtmosActivity.class );
+                           intent = new Intent( getApplicationContext(), LocationActivity.class );
                            startActivity( intent );
                            finish();
                            break;

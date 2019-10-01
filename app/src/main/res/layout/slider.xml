@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center">
+    ​
+    <TextView
+        android:id="@+id/CurrentLocation"
+        android:layout_width = "wrap_content"
+        android:layout_height = "wrap_content"
+        android:text="대한민국 서울시 ~"
+        android:textColor="#000000"
+        android:fontFamily="@font/seoulhangangcb"
+        android:textSize="25sp"/>
+
+    <TextView
+        android:id="@+id/dataTime"
+        android:layout_width = "wrap_content"
+        android:layout_height = "wrap_content"
+        android:text="관측시간 : 2019-09-23 11:00"
+        android:textColor="#000000"
+        android:fontFamily="@font/seoulhangangcb"
+        android:textSize="25sp"/>
+    <TextView
+        android:id="@+id/cityName"
+        android:layout_width = "wrap_content"
+        android:layout_height = "wrap_content"
+        android:text="관측 장소 : 종로구"
+        android:textColor="#000000"
+        android:fontFamily="@font/seoulhangangcb"
+        android:textSize="25sp" />
+    <TextView
+        android:id="@+id/so2Value"
+        android:layout_width = "wrap_content"
+        android:layout_height = "wrap_content"
+        android:text="아황산가스(SO2) : 0.003(ppm)"
+        android:textColor="#000000"
+        android:fontFamily="@font/seoulhangangcb"
+        android:textSize="25sp" />
+    <TextView
+        android:id="@+id/coValue"
+        android:layout_width = "wrap_content"
+        android:layout_height = "wrap_content"
+        android:text="일산화탄소(CO) : 0.4(ppm)"
+        android:textColor="#000000"
+        android:fontFamily="@font/seoulhangangcb"
+        android:textSize="25sp" />
+    <TextView
+        android:id="@+id/o3Value"
+        android:layout_width = "wrap_content"
+        android:layout_height = "wrap_content"
+        android:text="오존(O3) : 0.039(ppm)"
+        android:textColor="#000000"
+        android:fontFamily="@font/seoulhangangcb"
+        android:textSize="25sp" />
+    <TextView
+        android:id="@+id/no2Value"
+        android:layout_width = "wrap_content"
+        android:layout_height = "wrap_content"
+        android:text="이산화질소(NO2) : 0.016(ppm)"
+        android:textColor="#000000"
+        android:fontFamily="@font/seoulhangangcb"
+        android:textSize="25sp" />
+    <TextView
+        android:id="@+id/pm10Value"
+        android:layout_width = "wrap_content"
+        android:layout_height = "wrap_content"
+        android:text="미세먼지(PM10) : 27 ㎍/㎥"
+        android:textColor="#000000"
+        android:fontFamily="@font/seoulhangangcb"
+        android:textSize="25sp" />
+    <TextView
+        android:id="@+id/pm25Value"
+        android:layout_width = "wrap_content"
+        android:layout_height = "wrap_content"
+        android:text="미세먼지(PM2.5) : 27 ㎍/㎥"
+        android:textColor="#000000"
+        android:fontFamily="@font/seoulhangangcb"
+        android:textSize="25sp" />
+</LinearLayout>
