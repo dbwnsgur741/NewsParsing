@@ -1,18 +1,224 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/bg">
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/ViewPager"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+    <android.support.v7.widget.Toolbar
+        android:elevation="5dp"
+        android:id="@+id/msq_detail_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:titleTextColor="#000000">
+
+        <TextView
+            android:id="@+id/msq_detail_toolbar_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="#000000"
+            android:fontFamily="@font/seoulhangangcb"
+            android:textSize="18sp"
+            android:text="현재대기농도"/>
+    </android.support.v7.widget.Toolbar>
+
+    <View
+        android:layout_marginTop="53dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:id="@+id/toolbar_shadow"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="@drawable/toolbar_dropshadow" />
+
+    <LinearLayout
+        android:layout_marginTop="75dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="10">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="7">
+
+            <TextView
+                android:gravity="center"
+                android:fontFamily="@font/seoulhangangceb"
+                android:textColor="#000000"
+                android:layout_gravity="center"
+                android:text="현재위치"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/CurrentLocation"
+                android:gravity="center"
+                android:fontFamily="@font/seoulhangangcb"
+                android:textSize="24sp"
+                android:textColor="#000000"
+                android:text="부천시 역곡동"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:orientation="vertical">
+
+            <TextView
+                android:textAlignment="center"
+                android:id="@+id/dataTime"
+                android:gravity="center"
+                android:fontFamily="@font/seoulhangangceb"
+                android:textSize="10sp"
+                android:textColor="#000000"
+                android:layout_gravity="center"
+                android:text="관측시각 : 2019-10-01 16:00"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:textAlignment="center"
+                android:id="@+id/cityName"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:fontFamily="@font/seoulhangangceb"
+                android:textSize="10sp"
+                android:textColor="#000000"
+                android:layout_gravity="center"
+                android:text="관측장소 : 부천시"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/atmos_image"
+        android:layout_marginTop="200dp"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/smile"
+        android:layout_width="150dp"
+        android:layout_height="150dp" />
+
+    <LinearLayout
+        android:layout_marginTop="400dp"
+        android:orientation="vertical"
+        android:weightSum="10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
-    </android.support.v4.view.ViewPager>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:padding="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:weightSum="9">
+
+            <TextView
+                android:lineSpacingExtra="10dp"
+                android:id="@+id/pm10Value"
+                android:textAlignment="center"
+                android:layout_weight="3"
+                android:layout_width = "0dp"
+                android:layout_height = "wrap_content"
+                android:text="미세먼지(PM10) 0.039(ppm)"
+                android:textColor="#000000"
+                android:fontFamily="@font/seoulhangangcb"
+                android:textSize="15sp" />
+
+            <TextView
+                android:lineSpacingExtra="10dp"
+                android:id="@+id/pm25Value"
+                android:textAlignment="center"
+                android:layout_weight="3"
+                android:layout_width = "0dp"
+                android:layout_height = "wrap_content"
+                android:text="미세먼지(PM2.5) 0.039(ppm)"
+                android:textColor="#000000"
+                android:fontFamily="@font/seoulhangangcb"
+                android:textSize="15sp"/>
+
+            <TextView
+                android:lineSpacingExtra="10dp"
+                android:id="@+id/o3Value"
+                android:textAlignment="center"
+                android:layout_weight="3"
+                android:layout_width = "0dp"
+                android:layout_height = "wrap_content"
+                android:text="오존(O3) : 0.039(ppm)"
+                android:textColor="#000000"
+                android:fontFamily="@font/seoulhangangcb"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:padding="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:weightSum="9">
+
+            <TextView
+                android:lineSpacingExtra="10dp"
+                android:id="@+id/coValue"
+                android:textAlignment="center"
+                android:layout_weight="3"
+                android:layout_width = "0dp"
+                android:layout_height = "wrap_content"
+                android:text="오존(O3) : 0.039(ppm)"
+                android:textColor="#000000"
+                android:fontFamily="@font/seoulhangangcb"
+                android:textSize="15sp" />
+
+            <TextView
+                android:lineSpacingExtra="10dp"
+                android:id="@+id/so2Value"
+                android:textAlignment="center"
+                android:layout_weight="3"
+                android:layout_width = "0dp"
+                android:layout_height = "wrap_content"
+                android:text="오존(O3) : 0.039(ppm)"
+                android:textColor="#000000"
+                android:fontFamily="@font/seoulhangangcb"
+                android:textSize="15sp"/>
+
+            <TextView
+                android:lineSpacingExtra="10dp"
+                android:id="@+id/no2Value"
+                android:textAlignment="center"
+                android:layout_weight="3"
+                android:layout_width = "0dp"
+                android:layout_height = "wrap_content"
+                android:text="오존(O3) : 0.039(ppm)"
+                android:textColor="#000000"
+                android:fontFamily="@font/seoulhangangcb"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/chart"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="550dp"
+        android:layout_height="500dp"
+        android:layout_width="match_parent">
+
+    </com.github.mikephil.charting.charts.LineChart>
 
 </RelativeLayout>

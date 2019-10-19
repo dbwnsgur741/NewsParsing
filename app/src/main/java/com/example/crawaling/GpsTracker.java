@@ -42,12 +42,14 @@ public class GpsTracker extends Service implements LocationListener {
             locationManager = (LocationManager) mContext.getSystemService(LOCATION_SERVICE);
 
             boolean isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+            Log.d("isGPS", String.valueOf( isGPSEnabled ) );
             boolean isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+            Log.d("isNetwork", String.valueOf( isNetworkEnabled ) );
 
             if (!isGPSEnabled && !isNetworkEnabled) {
-
+                Log.d("vvvvvvvvvvvvvvv","vvvvvvvvvvvvvvvvv");
             } else {
-
+                Log.d("mmmmmmmmmmmmmmmm","mmmmmmmmmmmmmmmmm");
                 int hasFineLocationPermission = ContextCompat.checkSelfPermission(mContext,
                         Manifest.permission.ACCESS_FINE_LOCATION);
                 int hasCoarseLocationPermission = ContextCompat.checkSelfPermission(mContext,
@@ -58,13 +60,16 @@ public class GpsTracker extends Service implements LocationListener {
                         hasCoarseLocationPermission == PackageManager.PERMISSION_GRANTED) {
 
                     ;
-                } else
+                } else{
+                    Log.d("nnnnnnnnnnnn","nnnnnnnnnnnnnnn");
                     return null;
+                }
+
 
 
                 if (isNetworkEnabled) {
 
-
+                    Log.d("ggggggggggggggg","ggggggggggggggggggg");
                     locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_TIME_BW_UPDATES, MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
 
                     if (locationManager != null)
@@ -81,6 +86,7 @@ public class GpsTracker extends Service implements LocationListener {
 
                 if (isGPSEnabled)
                 {
+                    Log.d("hhhhhhhhhhhhhh","hhhhhhhhhhhhhhhh");
                     if (location == null)
                     {
                         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, MIN_TIME_BW_UPDATES, MIN_DISTANCE_CHANGE_FOR_UPDATES, this);

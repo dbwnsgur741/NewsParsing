@@ -2,8 +2,10 @@ package com.example.crawaling;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -14,7 +16,6 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -25,10 +26,14 @@ import java.util.Locale;
 public class LocationActivity extends AppCompatActivity
 {
     private GpsTracker gpsTracker;
+    private Context context;
 
     private static final int GPS_ENABLE_REQUEST_CODE = 2001;
     private static final int PERMISSIONS_REQUEST_CODE = 100;
     String[] REQUIRED_PERMISSIONS  = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
+
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
 
 
     @Override
@@ -36,67 +41,22 @@ public class LocationActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView( R.layout.location_activity);
+        context = this;
+        gpsTracker = new GpsTracker(context);
 
+        sharedPreferences = getSharedPreferences( "Location",MODE_PRIVATE );
+        editor = sharedPreferences.edit();
 
+        Log.d("111111111111111111","!!!!!!!!!!!!!!!1");
         if (!checkLocationServicesStatus()) {
-
+            Log.d("22222222222222222","2222222222222222222");
             showDialogForLocationServiceSetting();
         }else {
-
+            Log.d("3333333333333333333","33333333333333333333");
             checkRunTimePermission();
         }
 
-        final TextView textview_address = (TextView)findViewById(R.id.location_textview);
-
-        gpsTracker = new GpsTracker(LocationActivity.this);
-
-        double latitude = gpsTracker.getLatitude();
-        double longitude = gpsTracker.getLongitude();
-
-        String address = getCurrentAddress(latitude, longitude);
-        String[] array = address.split( " " );
-
-        String currentLocation = array[2] + array[3];
-        String first_temp = array[1];
-        first_temp =first_temp.substring( 0,2 );
-        String second_temp = array[2];
-
-        Intent intent = new Intent( getApplicationContext(),InfoAtmosActivity.class );
-        intent.putExtra( "CurrentLocation",currentLocation );
-        intent.putExtra( "first",first_temp );
-        intent.putExtra( "second",second_temp);
-        startActivity( intent );
-        finish();
-
-        /*
-        Button ShowLocationButton = (Button) findViewById(R.id.button);
-        ShowLocationButton.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View arg0)
-            {
-
-                gpsTracker = new GpsTracker(LocationActivity.this);
-
-                double latitude = gpsTracker.getLatitude();
-                double longitude = gpsTracker.getLongitude();
-
-                String address = getCurrentAddress(latitude, longitude);
-                String[] array = address.split( " " );
-                String first_temp = array[1];
-                first_temp =first_temp.substring( 0,2 );
-                String second_temp = array[2];
-
-                Intent intent = new Intent( getApplicationContext(),InfoAtmosActivity.class );
-                intent.putExtra( "first",first_temp );
-                intent.putExtra( "second",second_temp);
-                startActivity( intent );
-                textview_address.setText(address);
-            }
-        });
-        */
     }
-
 
     /*
      * ActivityCompat.requestPermissions를 사용한 퍼미션 요청의 결과를 리턴받는 메소드입니다.
@@ -106,10 +66,11 @@ public class LocationActivity extends AppCompatActivity
                                            @NonNull String[] permissions,
                                            @NonNull int[] grandResults) {
 
+        Log.d("aaaaaaaaaaaaaaaaaaa","aaaaaaaaaaaaaaa");
         if ( permsRequestCode == PERMISSIONS_REQUEST_CODE && grandResults.length == REQUIRED_PERMISSIONS.length) {
 
             // 요청 코드가 PERMISSIONS_REQUEST_CODE 이고, 요청한 퍼미션 개수만큼 수신되었다면
-
+            Log.d("bbbbbbbbbbbbbbb","bbbbbbbbbbbbbbbbbbbb");
             boolean check_result = true;
 
 
@@ -118,6 +79,7 @@ public class LocationActivity extends AppCompatActivity
             for (int result : grandResults) {
                 if (result != PackageManager.PERMISSION_GRANTED) {
                     check_result = false;
+                    Log.d("cccccccccccccccc","ccccccccccccccccccccc");
                     break;
                 }
             }
@@ -125,8 +87,8 @@ public class LocationActivity extends AppCompatActivity
 
             if ( check_result ) {
 
-                //위치 값을 가져올 수 있음
-                ;
+                checkRunTimePermission();
+
             }
             else {
                 // 거부한 퍼미션이 있다면 앱을 사용할 수 없는 이유를 설명해주고 앱을 종료합니다.2 가지 경우가 있습니다.
@@ -152,6 +114,7 @@ public class LocationActivity extends AppCompatActivity
 
         //런타임 퍼미션 처리
         // 1. 위치 퍼미션을 가지고 있는지 체크합니다.
+        Log.d("888888888","88888888888888888888");
         int hasFineLocationPermission = ContextCompat.checkSelfPermission(LocationActivity.this,
                 Manifest.permission.ACCESS_FINE_LOCATION);
         int hasCoarseLocationPermission = ContextCompat.checkSelfPermission(LocationActivity.this,
@@ -161,16 +124,45 @@ public class LocationActivity extends AppCompatActivity
         if (hasFineLocationPermission == PackageManager.PERMISSION_GRANTED &&
                 hasCoarseLocationPermission == PackageManager.PERMISSION_GRANTED) {
 
+            Log.d("99999999999999","999999999999999999");
+
+
+            double latitude = Double.parseDouble( sharedPreferences.getString( "latitude","" ) );
+            double longitude = Double.parseDouble( sharedPreferences.getString( "longitude","" ) );
+
+            Log.d("ㅇㅇㅇㅇㅇ경도", String.valueOf( latitude ) );
+            Log.d("ㅇㅇㅇㅇㅇ경도",String.valueOf( longitude ));
+
+            String address = getCurrentAddress(latitude, longitude);
+
+            if(address == "주소 미발견"){
+                Toast.makeText( this,"위치 정보를 제대로 받아오지 못했습니다.\n다시 시도해주세요.",Toast.LENGTH_LONG ).show();
+                finish();
+                return;
+            }
+
+            String[] array = address.split( " " );
+            Log.d("mmmmmmmvvmsavmkslml",array[0]);
+
+            String currentLocation = array[2] + array[3];
+            String first_temp = array[1];
+            first_temp =first_temp.substring( 0,2 );
+            String second_temp = array[2];
+
+            Intent intent = new Intent( getApplicationContext(),InfoAtmosActivity.class );
+            intent.putExtra( "CurrentLocation",currentLocation );
+            intent.putExtra( "first",first_temp );
+            intent.putExtra( "second",second_temp);
+            intent.putExtra( "wedo", longitude);
+            intent.putExtra( "kyeongdo",latitude );
+            startActivity( intent );
+            finish();
             // 2. 이미 퍼미션을 가지고 있다면
             // ( 안드로이드 6.0 이하 버전은 런타임 퍼미션이 필요없기 때문에 이미 허용된 걸로 인식합니다.)
-
-
             // 3.  위치 값을 가져올 수 있음
 
-
-
         } else {  //2. 퍼미션 요청을 허용한 적이 없다면 퍼미션 요청이 필요합니다. 2가지 경우(3-1, 4-1)가 있습니다.
-
+            Log.d("10101001010101010","10101010101010");
             // 3-1. 사용자가 퍼미션 거부를 한 적이 있는 경우에는
             if (ActivityCompat.shouldShowRequestPermissionRationale(LocationActivity.this, REQUIRED_PERMISSIONS[0])) {
 
@@ -182,6 +174,7 @@ public class LocationActivity extends AppCompatActivity
 
 
             } else {
+                Log.d("afafafafafaf","afafafafafaf");
                 // 4-1. 사용자가 퍼미션 거부를 한 적이 없는 경우에는 퍼미션 요청을 바로 합니다.
                 // 요청 결과는 onRequestPermissionResult에서 수신됩니다.
                 ActivityCompat.requestPermissions(LocationActivity.this, REQUIRED_PERMISSIONS,
@@ -216,12 +209,9 @@ public class LocationActivity extends AppCompatActivity
 
         }
 
-
-
         if (addresses == null || addresses.size() == 0) {
-            Toast.makeText(this, "주소 미발견", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "주소 미발견 다시 시도해주세요.", Toast.LENGTH_LONG).show();
             return "주소 미발견";
-
         }
 
         Address address = addresses.get(0);
@@ -233,11 +223,12 @@ public class LocationActivity extends AppCompatActivity
 
     //여기부터는 GPS 활성화를 위한 메소드들
     private void showDialogForLocationServiceSetting() {
+        Log.d("5555555555555555555555","5555555555555555555555555555");
 
         AlertDialog.Builder builder = new AlertDialog.Builder(LocationActivity.this);
         builder.setTitle("위치 서비스 비활성화");
         builder.setMessage("앱을 사용하기 위해서는 위치 서비스가 필요합니다.\n"
-                + "위치 설정을 수정하실래요?");
+                + "위치 설정을 수정해주세요.");
         builder.setCancelable(true);
         builder.setPositiveButton("설정", new DialogInterface.OnClickListener() {
             @Override
@@ -251,6 +242,7 @@ public class LocationActivity extends AppCompatActivity
             @Override
             public void onClick(DialogInterface dialog, int id) {
                 dialog.cancel();
+                finish();
             }
         });
         builder.create().show();
@@ -261,9 +253,12 @@ public class LocationActivity extends AppCompatActivity
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        /*
         switch (requestCode) {
 
             case GPS_ENABLE_REQUEST_CODE:
+
+                Log.d("777777777777777777","7777777777777777777777777");
 
                 //사용자가 GPS 활성 시켰는지 검사
                 if (checkLocationServicesStatus()) {
@@ -271,19 +266,35 @@ public class LocationActivity extends AppCompatActivity
 
                         Log.d("@@@", "onActivityResult : GPS 활성화 되있음");
                         checkRunTimePermission();
+
                         return;
                     }
                 }
 
                 break;
         }
+        */
+
+        if(requestCode == GPS_ENABLE_REQUEST_CODE){
+            if(checkLocationServicesStatus()){
+                Log.d("777777777777777777","7777777777777777777777777");
+                checkRunTimePermission();
+            }
+            else{
+                Toast.makeText( this,"위치 서비스를 활성화해야합니다.", Toast.LENGTH_LONG).show();
+                Log.d("...................",".................");
+                finish();
+            }
+        }
+
+
     }
 
     public boolean checkLocationServicesStatus() {
         LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-
-        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
-                || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+        Log.d("444444444444444444444","444444444444444444444444444");
+        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) // GPS 프로바이더 사용가능 여부
+                || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER); // 네트워크 프로바이더 사용가능여부
     }
 
 }
