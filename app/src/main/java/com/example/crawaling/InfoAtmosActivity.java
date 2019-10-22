@@ -23,7 +23,6 @@ import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -112,6 +111,8 @@ public class InfoAtmosActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         currentLocation = intent.getStringExtra( "CurrentLocation" );
+        Log.d("bbbbbbbbbbbb",currentLocation);
+
         SIDO = intent.getStringExtra( "first" );
         DONGU = intent.getStringExtra( "second" );
 
@@ -136,30 +137,16 @@ public class InfoAtmosActivity extends AppCompatActivity {
         mso2Value.setOnClickListener( this.onClickListener );
 
         context = this;
+
         new GetXMLTask( ).execute( );
     }
 
-    public class GetXMLTask extends AsyncTask<String, Void, Document> {
-
-
-        public org.w3c.dom.Document doc;
+    public class GetXMLTask extends AsyncTask<Void, Void, Void> {
 
         @Override
-        protected Document doInBackground(String... urls) {
-            Log.d("!!!!!","def");
-            URL url;
-            try {
-                url = new URL( "http://openapi.airkorea.or.kr/openapi/services/rest/ArpltnInforInqireSvc/getCtprvnMesureSidoLIst" +
-                        "?sidoName="+SIDO+"&searchCondition=DAILY&pageNo=1&numOfRows=40&" +
-                        "ServiceKey=%2BDQd8pShYLPqi01nFPYY8nkzSSmY1ZdloIu2WEwO%2BnWnPWI1frIATtnp%2FB3hwvUJVvMimjhngiunQZRl7S%2BCyA%3D%3D" );
-                DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-                DocumentBuilder db = dbf.newDocumentBuilder();
-                doc = db.parse( new InputSource( url.openStream() ) );
-                doc.getDocumentElement().normalize();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return doc;
+        protected Void doInBackground(Void... voids) {
+            getWeNKyeong();
+            return null;
         }
 
         @Override
@@ -173,67 +160,11 @@ public class InfoAtmosActivity extends AppCompatActivity {
         }
 
         @Override
-        protected void onPostExecute(Document doc) {
-
-            NodeList citycity = doc.getElementsByTagName( "cityName" );
-
-            String[] city = new String[40];
-            int index = 0;
-
-            for(int i = 0 ; i<citycity.getLength(); i++){
-                city[i] = citycity.item( i ).getFirstChild().getNodeValue();
-            }
-
-            for(int j=0 ; j<citycity.getLength(); j++){
-                if(city[j].equals( DONGU )){
-                    index = j;
-                    break;
-                }
-            }
-
-            NodeList nodeList = doc.getElementsByTagName( "item" );
-            Node node = nodeList.item( index );
-            Element fstElmnt = (Element) node;
-
-
-            NodeList dataTime = fstElmnt.getElementsByTagName( "dataTime" );
-            mDataTime = "관측 시간  \n" + dataTime.item( 0 ).getChildNodes().item( 0 ).getNodeValue();
-
-            NodeList cityName = fstElmnt.getElementsByTagName( "cityName" );
-            mCityName = "관측 장소  \n" + cityName.item( 0 ).getChildNodes().item( 0 ).getNodeValue();
-
-            NodeList so2Value = fstElmnt.getElementsByTagName( "so2Value" );
-            mSo2Value = "아황산가스(SO2)  \n" + so2Value.item( 0 ).getChildNodes().item( 0 ).getNodeValue()+"(ppm)";
-
-            NodeList o3Value = fstElmnt.getElementsByTagName( "o3Value" );
-            mO3Value = "오존(O3)  \n" + o3Value.item( 0 ).getChildNodes().item( 0 ).getNodeValue()+"(ppm)";
-
-            NodeList no2Value = fstElmnt.getElementsByTagName( "no2Value" );
-            mNo2Value = "이산화질소(NO2)  \n" + no2Value.item( 0 ).getChildNodes().item( 0 ).getNodeValue()+"(ppm)";
-
-            NodeList coValue = fstElmnt.getElementsByTagName( "coValue" );
-            mCoValue = "일산화탄소(CO)  \n" + coValue.item( 0 ).getChildNodes().item( 0 ).getNodeValue()+"(ppm)";
-
-            NodeList pm10Value = fstElmnt.getElementsByTagName( "pm10Value" );
-            mPm10Value = "미세먼지(PM10)  \n" + pm10Value.item( 0 ).getChildNodes().item( 0 ).getNodeValue()+"(㎍/㎥)";
-
-            NodeList pm25Value = fstElmnt.getElementsByTagName( "pm25Value" );
-            mPm25Value = "미세먼지(PM2.5)  \n" + pm25Value.item( 0 ).getChildNodes().item( 0 ).getNodeValue()+"(㎍/㎥)";
-
-            mCurrentLocation.setText( currentLocation );
-            mdataTime.setText( mDataTime );
-            mcityName.setText( mCityName );
-            mso2Value.setText( mSo2Value );
-            mcoValue.setText( mCoValue);
-            mo3Value.setText( mO3Value );
-            mno2Value.setText( mNo2Value );
-            mpm10Value.setText( mPm10Value );
-            mpm25Value.setText( mPm25Value );
-
-            getWeNKyeong();
+        protected void onPostExecute(Void aVoid) {
 
         }
     }
+
 
     private void getWeNKyeong(){
 
@@ -265,7 +196,7 @@ public class InfoAtmosActivity extends AppCompatActivity {
                             buffer.append(str);
                         }
 
-                        Log.d("buffer",buffer.toString());
+                            Log.d("buffer",buffer.toString());
 
                         JSONObject jsonObject = new JSONObject( buffer.toString() );
 
@@ -282,7 +213,7 @@ public class InfoAtmosActivity extends AppCompatActivity {
                         reader.close();
 
                     } else {
-
+                        Log.v("buffer","errorr");
                     }
 
                 } catch (MalformedURLException e) {
@@ -290,6 +221,8 @@ public class InfoAtmosActivity extends AppCompatActivity {
                 } catch (IOException e) {
                     e.printStackTrace();
                 } catch (JSONException e) {
+                    e.printStackTrace();
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -322,9 +255,10 @@ public class InfoAtmosActivity extends AppCompatActivity {
 
                     // 관측소 이름 구하기 --> stationName , 관측소와 거리 --> farFrom
                     NodeList nodeList = element.getElementsByTagName( "stationName" );
+                    NodeList nodeList1 = element.getElementsByTagName( "tm" );
                     staionName = nodeList.item( 0 ).getChildNodes().item( 0 ).getNodeValue();
-                    farFrom = nodeList.item( 0 ).getChildNodes().item( 0 ).getNodeValue();
-
+                    farFrom = nodeList1.item( 0 ).getChildNodes().item( 0 ).getNodeValue();
+                    Log.v("!!!!!!!!!!!!!!!!","getStation");
                     getDailyInfo();
 
                 } catch (Exception e) {
@@ -355,6 +289,38 @@ public class InfoAtmosActivity extends AppCompatActivity {
                     document = db.parse( new InputSource( url.openStream() ) );
                     document.getDocumentElement().normalize();
 
+                    NodeList nodeList0  = document.getElementsByTagName( "item" );
+                    Node node = nodeList0.item( 0 );
+                    Element element = (Element) node;
+
+                    NodeList dataTime = element.getElementsByTagName( "dataTime" );
+                    mDataTime = "관측 시간  \n" + dataTime.item( 0 ).getChildNodes().item( 0 ).getNodeValue();
+                    Log.d("!!!!!!!!",mDataTime);
+
+                    NodeList so2Value = element.getElementsByTagName( "so2Value" );
+                    mSo2Value = "아황산가스(SO2)  \n" + so2Value.item( 0 ).getChildNodes().item( 0 ).getNodeValue()+"(ppm)";
+                    Log.d("@@@@@@@@2",mSo2Value);
+
+                    NodeList o3Value = element.getElementsByTagName( "o3Value" );
+                    mO3Value = "오존(O3)  \n" + o3Value.item( 0 ).getChildNodes().item( 0 ).getNodeValue()+"(ppm)";
+                    Log.d("오존",mO3Value);
+
+                    NodeList no2Value = element.getElementsByTagName( "no2Value" );
+                    mNo2Value = "이산화질소(NO2)  \n" + no2Value.item( 0 ).getChildNodes().item( 0 ).getNodeValue()+"(ppm)";
+                    Log.d("이산화질소",mNo2Value);
+
+                    NodeList coValue = element.getElementsByTagName( "coValue" );
+                    mCoValue = "일산화탄소(CO)  \n" + coValue.item( 0 ).getChildNodes().item( 0 ).getNodeValue()+"(ppm)";
+                    Log.d("일산화탄소",mCoValue);
+
+                    NodeList pm10Value = element.getElementsByTagName( "pm10Value" );
+                    mPm10Value = "미세먼지(PM10)  \n" + pm10Value.item( 0 ).getChildNodes().item( 0 ).getNodeValue()+"(㎍/㎥)";
+                    Log.d("미세먼지",mPm10Value);
+
+                    NodeList pm25Value = element.getElementsByTagName( "pm25Value" );
+                    mPm25Value = "미세먼지(PM2.5)  \n" + pm25Value.item( 0 ).getChildNodes().item( 0 ).getNodeValue()+"(㎍/㎥)";
+
+
                     NodeList nodeList = document.getElementsByTagName( "dataTime" );
                     NodeList nodeList1 = document.getElementsByTagName( theValue );
 
@@ -375,6 +341,7 @@ public class InfoAtmosActivity extends AppCompatActivity {
                         Log.d("mathmath",nodeList1.item( i ).getFirstChild().getNodeValue()+"\n");
                         station_theValue[i] = nodeList1.item( i ).getFirstChild().getNodeValue();
                     }
+                    Log.v("!!!!!!!!!!!!!!!!","getDaily");
 
                     setLineChart(station_dataTime,station_theValue);
 
@@ -433,9 +400,25 @@ public class InfoAtmosActivity extends AppCompatActivity {
         lineChart.setData( data );
         lineChart.invalidate();
 
+        runOnUiThread( new Runnable() {
+            @Override
+            public void run() {
+                mCityName = "관측 장소\n" + staionName + "\n\n" +"관측소와의 거리\n" + farFrom +"(km)";
+                mcityName.setText( mCityName );
+                mCurrentLocation.setText( currentLocation );
+                mdataTime.setText( mDataTime );
+                mso2Value.setText( mSo2Value );
+                mcoValue.setText( mCoValue);
+                mo3Value.setText( mO3Value );
+                mno2Value.setText( mNo2Value );
+                mpm10Value.setText( mPm10Value );
+                mpm25Value.setText( mPm25Value );
+            }
+        } );
+        Log.v("!!!!!!!!!!!!!!!!","setLine");
+
         // End of progress
         progressDialog.dismiss();
-
     }
 
     private TextView.OnClickListener onClickListener = new View.OnClickListener(){
