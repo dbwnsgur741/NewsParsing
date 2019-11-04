@@ -3,6 +3,7 @@ package com.example.crawaling;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -247,6 +248,7 @@ public class InfoAtmosActivity extends AppCompatActivity {
                     DocumentBuilder db = dbf.newDocumentBuilder();
 
                     document = db.parse( new InputSource( url.openStream() ) );
+                    Log.d("fvavavva", String.valueOf( document ) );
                     document.getDocumentElement().normalize();
 
                     NodeList station = document.getElementsByTagName( "item" );
@@ -287,6 +289,9 @@ public class InfoAtmosActivity extends AppCompatActivity {
                     DocumentBuilder db = dbf.newDocumentBuilder();
 
                     document = db.parse( new InputSource( url.openStream() ) );
+
+                    Log.d("abcdefg", String.valueOf( document ) );
+
                     document.getDocumentElement().normalize();
 
                     NodeList nodeList0  = document.getElementsByTagName( "item" );
@@ -424,32 +429,67 @@ public class InfoAtmosActivity extends AppCompatActivity {
     private TextView.OnClickListener onClickListener = new View.OnClickListener(){
         @Override
         public void onClick(View v) {
+            defaultTextview();
          switch (v.getId()){
              case R.id.pm10Value:
+                 mpm10Value.setBackgroundColor( Color.parseColor( "#6666FF" ) );
+                 mpm10Value.setTextColor( Color.parseColor( "#FFFFFF" ) );
                  theValue = "pm10Value";
                  getDailyInfo();
                  break;
              case R.id.pm25Value:
+                 mpm25Value.setBackgroundColor( Color.parseColor( "#6666FF" ) );
+                 mpm25Value.setTextColor( Color.parseColor( "#FFFFFF" ) );
                  theValue = "pm25Value";
                  getDailyInfo();
                  break;
              case R.id.no2Value:
+                 mno2Value.setBackgroundColor( Color.parseColor( "#6666FF" ) );
+                 mno2Value.setTextColor( Color.parseColor( "#FFFFFF" ) );
                  theValue = "no2Value";
                  getDailyInfo();
                  break;
              case R.id.o3Value:
+                 mo3Value.setBackgroundColor( Color.parseColor( "#6666FF" ) );
+                 mo3Value.setTextColor( Color.parseColor( "#FFFFFF" ) );
                  theValue = "o3Value";
                  getDailyInfo();
                  break;
              case R.id.so2Value:
+                 mso2Value.setBackgroundColor( Color.parseColor( "#6666FF" ) );
+                 mso2Value.setTextColor( Color.parseColor( "#FFFFFF" ) );
                  theValue = "so2Value";
                  getDailyInfo();
                  break;
              case R.id.coValue:
+                 mcoValue.setBackgroundColor( Color.parseColor( "#6666FF" ) );
+                 mcoValue.setTextColor( Color.parseColor( "#FFFFFF" ) );
                  theValue = "coValue";
                  getDailyInfo();
                  break;
          }
         }
     };
+
+    private void defaultTextview(){
+
+        mpm10Value.setBackgroundColor( Color.TRANSPARENT );
+        mpm10Value.setTextColor( Color.parseColor( "#000000" ) );
+
+        mpm25Value.setBackgroundColor( Color.TRANSPARENT );
+        mpm25Value.setTextColor( Color.parseColor( "#000000" ) );
+
+        mso2Value.setBackgroundColor( Color.TRANSPARENT );
+        mso2Value.setTextColor( Color.parseColor("#000000") );
+
+        mno2Value.setBackgroundColor( Color.TRANSPARENT );
+        mno2Value.setTextColor( Color.parseColor("#000000") );
+
+        mcoValue.setBackgroundColor( Color.TRANSPARENT );
+        mcoValue.setTextColor( Color.parseColor("#000000") );
+
+        mo3Value.setBackgroundColor( Color.TRANSPARENT );
+        mo3Value.setTextColor( Color.parseColor("#000000") );
+
+    }
 }

@@ -116,6 +116,14 @@ public class ListViewActivity extends AppCompatActivity {
                         startActivity( intent );
                         finish();
                         break;
+
+                    case 2:
+                        intent = new Intent( getApplicationContext(), MainActivity.class );
+                        intent.putExtra( "index", strings[5]);
+                        startActivity( intent );
+                        finish();
+                        break;
+                        /*
                     case 2:
                         if(string.equals( "대기오염" )){
                            intent = new Intent( getApplicationContext(), LocationActivity.class );
@@ -129,6 +137,7 @@ public class ListViewActivity extends AppCompatActivity {
                             finish();
                             break;
                         }
+                        */
                 }
             }
         } );

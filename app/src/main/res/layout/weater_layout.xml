@@ -1,0 +1,173 @@
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<RelativeLayout
+    android:id="@+id/default_layout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:elevation="5dp"
+        android:id="@+id/msq_detail_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:titleTextColor="#000000">
+
+        <TextView
+            android:id="@+id/msq_detail_toolbar_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="#000000"
+            android:fontFamily="@font/seoulhangangcb"
+            android:textSize="18sp"
+            android:text="현재 날씨 보기"/>
+    </android.support.v7.widget.Toolbar>
+
+    <View
+        android:layout_marginTop="53dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:id="@+id/toolbar_shadow"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="@drawable/toolbar_dropshadow" />
+
+    <ImageView
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="70dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/location"/>
+
+    <TextView
+        android:lineSpacingExtra="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="23sp"
+        android:fontFamily="@font/seoulhangangcb"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="현재위치"/>
+
+    <TextView
+        android:id="@+id/TV_Location"
+        android:lineSpacingExtra="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="140dp"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="30sp"
+        android:fontFamily="@font/seoulhangangcb"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="KR - Bucheon"/>
+
+    <LinearLayout
+        android:gravity="center"
+        android:layout_marginTop="200dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/IV_weather"
+            android:layout_width="50sp"
+            android:layout_height="50sp" />
+
+        <TextView
+            android:id="@+id/TV_CTEMP"
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:textSize="30sp"
+            android:fontFamily="@font/seoulhangangceb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="17\u2103"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/TV_MAIN"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="250dp"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:fontFamily="@font/seoulhangangceb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Clear"/>
+
+    <TextView
+        android:id="@+id/TV_DESC"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="280dp"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="15sp"
+        android:fontFamily="@font/seoulhangangceb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Clear Sky"/>
+
+    <LinearLayout
+        android:weightSum="12"
+        android:layout_marginTop="350dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/TV_Humidity"
+            android:layout_weight="4"
+            android:layout_centerHorizontal="true"
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:textSize="15sp"
+            android:fontFamily="@font/seoulhangangceb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Humidity \n\n 80%"/>
+        <TextView
+            android:id="@+id/TV_MAXTEMP"
+            android:layout_weight="4"
+            android:layout_centerHorizontal="true"
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:textSize="15sp"
+            android:fontFamily="@font/seoulhangangceb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Max TEMP \n\n 24\u2103"/>
+        <TextView
+            android:id="@+id/TV_MINTEMP"
+            android:layout_weight="4"
+            android:layout_centerHorizontal="true"
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:textSize="15sp"
+            android:fontFamily="@font/seoulhangangceb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Min TEMP \n\n 13\u2103"/>
+    </LinearLayout>
+
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/weather_chart"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="450dp"
+        android:layout_height="200dp"
+        android:layout_width="match_parent">
+
+    </com.github.mikephil.charting.charts.LineChart>
+
+</RelativeLayout>
+
+</android.support.v4.widget.NestedScrollView>

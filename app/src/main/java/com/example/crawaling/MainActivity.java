@@ -10,6 +10,8 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -25,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageView rightImg;
     private static int cnt = 1;
     private static String category;
+    private TextView page;
      //파싱할 홈페이지의 URL주소
 
     @Override
@@ -34,6 +37,9 @@ public class MainActivity extends AppCompatActivity {
         recyclerView = (RecyclerView)findViewById( R.id.recyclerview );
         leftImg = (ImageView)findViewById( R.id.left_img );
         rightImg = (ImageView)findViewById( R.id.right_img );
+        page = (TextView)findViewById( R.id.page_num );
+
+        page.setText( cnt+" PAGE" );
 
         Intent intent = getIntent();
         this.category = intent.getStringExtra( "index" );
@@ -48,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
                     Intent intent = new Intent( getApplicationContext(), MainActivity.class );
                     intent.putExtra( "index",category );
                     cnt -= 1;
+                    page.setText( cnt+" PAGE" );
                     startActivity( intent );
                     finish();
                 }else{
@@ -65,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent( getApplicationContext(), MainActivity.class );
                 intent.putExtra( "index",category );
                 cnt += 1;
+                page.setText( cnt+" PAGE" );
                 startActivity( intent );
                 finish();
             }

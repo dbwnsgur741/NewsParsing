@@ -21,6 +21,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -28,6 +29,11 @@ import java.util.List;
 import java.util.Locale;
 
 public class FirstActivity extends AppCompatActivity {
+
+    private LinearLayout linearLayout_dictionary;
+    private LinearLayout linearLayout_news;
+    private LinearLayout linearLayout_atmos;
+    private LinearLayout linearLayout_weather;
 
     private ImageView imageView;
     private GpsTracker gpsTracker;
@@ -46,7 +52,7 @@ public class FirstActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
-        setContentView( R.layout.firstactivity );
+        setContentView( R.layout.real_first_activity );
 
         context =this;
 
@@ -59,6 +65,16 @@ public class FirstActivity extends AppCompatActivity {
         Log.d("CLatitude",cLatitude);
         Log.d("CLongitude",cLongitude);
 
+        linearLayout_dictionary = findViewById( R.id.linear_dictionary );
+        linearLayout_news = findViewById( R.id.linear_news );
+        linearLayout_atmos = findViewById( R.id.linear_atmos );
+        linearLayout_weather = findViewById( R.id.linear_weather );
+
+        linearLayout_dictionary.setOnClickListener( this.onClickListener );
+        linearLayout_news.setOnClickListener( this.onClickListener );
+        linearLayout_atmos.setOnClickListener( this.onClickListener );
+        linearLayout_weather.setOnClickListener( this.onClickListener );
+
         Toolbar toolbar = (Toolbar) findViewById( R.id.msq_detail_toolbar );
         setSupportActionBar( toolbar );
 
@@ -68,19 +84,35 @@ public class FirstActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayShowTitleEnabled( false );
         }
 
-        imageView = (ImageView) findViewById( R.id.first_IV );
-        imageView.setOnClickListener( new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent( getApplicationContext(), SecondActivity.class );
-                startActivity( intent );
-                finish();
-            }
-        } );
-
         showDialogForLocationServiceSetting();
 
     }
+
+    private LinearLayout.OnClickListener onClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = null;
+
+            switch (v.getId()){
+                case R.id.linear_dictionary:
+                    intent = new Intent( context , DictionaryActivity.class );
+                    startActivity( intent );
+                    break;
+                case R.id.linear_news:
+                    intent = new Intent( context, SecondActivity.class );
+                    startActivity( intent );
+                    break;
+                case R.id.linear_atmos:
+                    intent = new Intent( context, LocationActivity.class );
+                    startActivity( intent );
+                    break;
+                case R.id.linear_weather:
+                    intent = new Intent( context, WeatherActivity.class );
+                    startActivity( intent );
+                    break;
+            }
+        }
+    };
 
 
     @Override
@@ -183,7 +215,6 @@ public class FirstActivity extends AppCompatActivity {
         Log.d("ccccccc",cLatitude);
 
         if(cLatitude.equals( "" )){
-
 
             AlertDialog.Builder builder = new AlertDialog.Builder( this );
             builder.setTitle( "위치 정보를 불러오지 못했습니다." );
