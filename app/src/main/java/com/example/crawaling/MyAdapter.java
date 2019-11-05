@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,13 +58,22 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+
         holder.textView_title.setText(String.valueOf(mList.get(position).getTitle()));
         holder.textView_desc.setText(String.valueOf(mList.get(position).getDesc()));
+
         //다 해줬는데도 GlideApp 에러가 나면 rebuild project를 해주자.
-        
-        GlideApp.with(holder.itemView).load(mList.get(position).getImg_url())
-                .override(300,400)
-                .into(holder.imageView_img);
+        Log.d("#######",mList.get(position).getImg_url());
+
+        if(mList.get( position ).getImg_url().equals( "" )){
+            holder.imageView_img.setImageResource( R.drawable.logo );
+        }
+        else{
+            GlideApp.with(holder.itemView).load(mList.get(position).getImg_url())
+                    .override(300,400)
+                    .into(holder.imageView_img);
+        }
+
     }
 
     @Override

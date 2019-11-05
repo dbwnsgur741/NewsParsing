@@ -70,41 +70,24 @@
         android:layout_height="wrap_content"
         android:text="KR - Bucheon"/>
 
-    <LinearLayout
-        android:gravity="center"
-        android:layout_marginTop="200dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
 
         <ImageView
+            android:layout_marginTop="180dp"
             android:id="@+id/IV_weather"
             android:layout_width="50sp"
-            android:layout_height="50sp" />
+            android:layout_height="50sp"
+            android:layout_centerHorizontal="true"/>
 
         <TextView
+            android:layout_marginTop="230dp"
             android:id="@+id/TV_CTEMP"
             android:textAlignment="center"
             android:textColor="#000000"
             android:textSize="30sp"
             android:fontFamily="@font/seoulhangangceb"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="17\u2103"/>
-
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/TV_MAIN"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="250dp"
-        android:textAlignment="center"
-        android:textColor="#000000"
-        android:textSize="20sp"
-        android:fontFamily="@font/seoulhangangceb"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Clear"/>
 
     <TextView
         android:id="@+id/TV_DESC"
@@ -119,15 +102,41 @@
         android:text="Clear Sky"/>
 
     <LinearLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:weightSum="12"
-        android:layout_marginTop="350dp"
+        android:layout_marginTop="320dp"
+        android:layout_width="match_parent"
+        android:layout_height="30dp">
+
+        <android.support.v7.widget.AppCompatImageView
+            app:srcCompat="@drawable/humidity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="4" />
+
+        <android.support.v7.widget.AppCompatImageView
+            android:layout_weight="4"
+            app:srcCompat="@drawable/maxtemp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <android.support.v7.widget.AppCompatImageView
+            android:layout_weight="4"
+            app:srcCompat="@drawable/mintemp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:weightSum="12"
+        android:layout_marginTop="375dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/TV_Humidity"
             android:layout_weight="4"
-            android:layout_centerHorizontal="true"
             android:textAlignment="center"
             android:textColor="#000000"
             android:textSize="15sp"
@@ -138,7 +147,6 @@
         <TextView
             android:id="@+id/TV_MAXTEMP"
             android:layout_weight="4"
-            android:layout_centerHorizontal="true"
             android:textAlignment="center"
             android:textColor="#000000"
             android:textSize="15sp"
@@ -149,7 +157,6 @@
         <TextView
             android:id="@+id/TV_MINTEMP"
             android:layout_weight="4"
-            android:layout_centerHorizontal="true"
             android:textAlignment="center"
             android:textColor="#000000"
             android:textSize="15sp"
@@ -159,14 +166,15 @@
             android:text="Min TEMP \n\n 13\u2103"/>
     </LinearLayout>
 
-    <com.github.mikephil.charting.charts.LineChart
-        android:id="@+id/weather_chart"
-        android:layout_centerHorizontal="true"
+    <android.support.v7.widget.RecyclerView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="450dp"
-        android:layout_height="200dp"
-        android:layout_width="match_parent">
-
-    </com.github.mikephil.charting.charts.LineChart>
+        app:layoutManager="android.support.v7.widget.GridLayoutManager"
+        app:spanCount="3">
+    </android.support.v7.widget.RecyclerView>
 
 </RelativeLayout>
 

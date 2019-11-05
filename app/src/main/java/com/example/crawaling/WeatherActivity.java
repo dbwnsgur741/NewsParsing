@@ -9,20 +9,21 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.LineData;
-import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
-import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -33,8 +34,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -72,7 +71,15 @@ public class WeatherActivity extends AppCompatActivity {
     private XAxis xAxis;
     private YAxis yAxis;
 
+    String[] data  = new String[6];
+    String[] temperature = new String[6];
+    String[] icon = new String[6];
+
+    String[] data2 = {"3시간 후","6시간 후","9시간 후","12시간 후","15시간 후","18시간 후"};
+
     Handler handler = new Handler( Looper.getMainLooper() );
+
+    private RecyclerView recyclerView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -91,19 +98,19 @@ public class WeatherActivity extends AppCompatActivity {
         IV_weather = findViewById( R.id.IV_weather );
         TV_Location = findViewById( R.id.TV_Location );
         TV_CTEMP = findViewById( R.id.TV_CTEMP );
-        TV_MAIN = findViewById( R.id.TV_MAIN );
         TV_DESC = findViewById( R.id.TV_DESC );
         TV_Humidity = findViewById( R.id.TV_Humidity );
         TV_MAXTEMP = findViewById( R.id.TV_MAXTEMP );
         TV_MINTEMP = findViewById( R.id.TV_MINTEMP );
-
+        recyclerView = findViewById( R.id.recyclerview );
+        /*
         lineChart = (LineChart)findViewById( R.id.weather_chart );
         lineChart.getDescription().setEnabled( false );
 
         xAxis = lineChart.getXAxis();
         yAxis = lineChart.getAxisLeft();
         lineChart.getAxisRight().setEnabled( false );
-
+        */
 
         new GetWeatherTask().execute(  );
     }
@@ -183,7 +190,6 @@ public class WeatherActivity extends AppCompatActivity {
 
             TV_Location.setText( cNation + "-" + cCountry );
             TV_CTEMP.setText( cTemperature+ "\u2103" );
-            TV_MAIN.setText( cWeather );
             TV_DESC.setText( cDescription );
             TV_Humidity.setText( "Humidity \n\n " + cHumidity + "%" );
             TV_MAXTEMP.setText( "Max TEMP \n\n" + cMaxTemp + "\u2103" );
@@ -248,8 +254,7 @@ public class WeatherActivity extends AppCompatActivity {
                 Log.d( "buffer", buffer.toString() );
 
                 JSONObject jsonObject = new JSONObject( buffer.toString() );
-                String[] data  = new String[6];
-                String[] temperature = new String[6];
+
 
                 for(int i = 0 ; i < jsonObject.getJSONArray( "list" ).length() ; i ++){
 
@@ -267,6 +272,7 @@ public class WeatherActivity extends AppCompatActivity {
 
                     // 온도 설정 완료
 
+
                    // 날짜 자르기
 
                     String tt2 = jsonObject.getJSONArray( "list" ).getJSONObject( i ).getString( "dt_txt" );
@@ -280,11 +286,25 @@ public class WeatherActivity extends AppCompatActivity {
                     Log.d("%%%%%",tt2);
                     data[i] = tt2;
                     temperature[i] = tt;
+                    icon[i] = jsonObject.getJSONArray( "list" ).getJSONObject( i ).getJSONArray( "weather" ).getJSONObject(0).getString("icon");
+                    Log.d("%%%%%%%%%55",icon[i]);
                 }
 
+                /* 차트 만들 때 사용 .
+
                 setLineChart(data,temperature);
-                
+                */
                 reader.close();
+                runOnUiThread( new Runnable() {
+                    @Override
+                    public void run() {
+                        MyAdapter2 myAdapter2 = new MyAdapter2();
+                        LinearLayoutManager layoutManager = new LinearLayoutManager( getApplicationContext(), LinearLayoutManager.HORIZONTAL,false );
+                        recyclerView.setLayoutManager( layoutManager );
+                        recyclerView.setAdapter( myAdapter2 );
+                    }
+                } );
+
             }
 
             catch(MalformedURLException e){
@@ -326,6 +346,8 @@ public class WeatherActivity extends AppCompatActivity {
         }
     }
 
+
+    /*
     private void setLineChart(String[] data, String[] temperature) {
         ArrayList<Entry> values = new ArrayList<Entry>( );
         LineDataSet set;
@@ -359,6 +381,50 @@ public class WeatherActivity extends AppCompatActivity {
         LineData lineData = new LineData(dataSets);
         lineChart.setData( lineData );
         lineChart.invalidate();
+    }
+
+    */
+    public class MyAdapter2 extends RecyclerView.Adapter<MyAdapter2.ViewHolder>{
+
+        @NonNull
+        @Override
+        public MyAdapter2.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+            final View view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.itemlist2,viewGroup,false );
+            final ViewHolder holder = new ViewHolder( view );
+            return holder;
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull MyAdapter2.ViewHolder viewHolder, int i) {
+
+            viewHolder.textView_top.setText( data2[i] );
+            viewHolder.textView_bottom.setText( temperature[i]+"\u2103" );
+
+            String temp = "http://openweathermap.org/img/w/"+icon[i]+".png";
+
+            GlideApp.with(viewHolder.itemView).load(temp)
+                    .override(300,300)
+                    .into(viewHolder.imageView);
+        }
+
+        @Override
+        public int getItemCount() {
+            return icon.length;
+        }
+
+        public class ViewHolder extends RecyclerView.ViewHolder {
+            private ImageView imageView;
+            private TextView textView_top , textView_bottom;
+
+            public ViewHolder(@NonNull View itemView) {
+                super( itemView );
+
+                imageView = (ImageView) itemView.findViewById( R.id.imageview_middle );
+                textView_top = itemView.findViewById( R.id.textView_Top );
+                textView_bottom = itemView.findViewById( R.id.textView_bottom );
+
+            }
+        }
     }
 }
 

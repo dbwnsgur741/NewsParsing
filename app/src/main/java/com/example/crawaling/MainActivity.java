@@ -16,6 +16,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -54,7 +55,6 @@ public class MainActivity extends AppCompatActivity {
                     Intent intent = new Intent( getApplicationContext(), MainActivity.class );
                     intent.putExtra( "index",category );
                     cnt -= 1;
-                    page.setText( cnt+" PAGE" );
                     startActivity( intent );
                     finish();
                 }else{
@@ -72,7 +72,6 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent( getApplicationContext(), MainActivity.class );
                 intent.putExtra( "index",category );
                 cnt += 1;
-                page.setText( cnt+" PAGE" );
                 startActivity( intent );
                 finish();
             }
@@ -82,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        cnt = 1;
         super.onBackPressed();
     }
 
@@ -136,4 +136,6 @@ public class MainActivity extends AppCompatActivity {
             progressDialog.dismiss();
         }
     }
+
+
 }

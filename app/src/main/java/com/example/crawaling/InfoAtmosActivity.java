@@ -373,7 +373,15 @@ public class InfoAtmosActivity extends AppCompatActivity {
 
         for (int i = 0; i < time.length; i++) {
 
-            float value = Float.parseFloat( value_10[i] );
+            float value ;
+
+            if(value_10[i].equals( "-" )){
+                value = Float.parseFloat( "0" );
+            }
+            else{
+                value = Float.parseFloat( value_10[i] );
+            }
+
             float times = Float.parseFloat( time[i] );
 
             Log.d("valuevalue", String.valueOf( value ) );
