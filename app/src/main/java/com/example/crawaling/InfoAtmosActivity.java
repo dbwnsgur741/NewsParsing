@@ -10,6 +10,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
@@ -45,6 +46,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 public class InfoAtmosActivity extends AppCompatActivity {
 
+    private ImageView imageView;
     private TextView mCurrentLocation;
     private TextView mdataTime;
     private TextView mcityName;
@@ -83,6 +85,8 @@ public class InfoAtmosActivity extends AppCompatActivity {
     private YAxis yAxis;
 
     private static String theValue = "pm10Value";
+    private static TextView atmos_textview;
+    private int pm25temp;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -120,6 +124,7 @@ public class InfoAtmosActivity extends AppCompatActivity {
         wedo = (double) intent.getDoubleExtra( "wedo",0 );
         kyeongdo = (double) intent.getDoubleExtra( "kyeongdo",0 );
 
+        imageView = (ImageView)findViewById( R.id.atmos_image );
         mCurrentLocation = (TextView)findViewById( R.id.CurrentLocation );
         mdataTime = (TextView)findViewById( R.id.dataTime );
         mcityName = (TextView)findViewById( R.id.cityName );
@@ -129,6 +134,7 @@ public class InfoAtmosActivity extends AppCompatActivity {
         mno2Value = (TextView)findViewById( R.id.no2Value );
         mpm10Value = (TextView)findViewById( R.id.pm10Value );
         mpm25Value = (TextView)findViewById( R.id.pm25Value );
+        atmos_textview = (TextView)findViewById( R.id.atmos_textview );
 
         mpm10Value.setOnClickListener( this.onClickListener );
         mpm25Value.setOnClickListener( this.onClickListener );
@@ -323,6 +329,7 @@ public class InfoAtmosActivity extends AppCompatActivity {
                     Log.d("미세먼지",mPm10Value);
 
                     NodeList pm25Value = element.getElementsByTagName( "pm25Value" );
+                    pm25temp = Integer.parseInt(pm25Value.item( 0 ).getChildNodes().item( 0 ).getNodeValue());
                     mPm25Value = "미세먼지(PM2.5)  \n" + pm25Value.item( 0 ).getChildNodes().item( 0 ).getNodeValue()+"(㎍/㎥)";
 
 
@@ -426,6 +433,25 @@ public class InfoAtmosActivity extends AppCompatActivity {
                 mno2Value.setText( mNo2Value );
                 mpm10Value.setText( mPm10Value );
                 mpm25Value.setText( mPm25Value );
+
+                // 분기 나눠서 ... mPm25Value
+
+                if(0 < pm25temp && pm25temp < 16){
+                    atmos_textview.setText( "좋음" );
+                    imageView.setImageResource( R.drawable.verygood );
+                }
+                else if(16 < pm25temp && pm25temp < 31 ){
+                    atmos_textview.setText( "보통" );
+                    imageView.setImageResource( R.drawable.good );
+                }
+                else if(30 < pm25temp && pm25temp < 76){
+                    atmos_textview.setText( "나쁨" );
+                    imageView.setImageResource( R.drawable.bad_icon );
+                }
+                else{
+                    atmos_textview.setText( "매우나쁨" );
+                    imageView.setImageResource( R.drawable.verybad );
+                }
             }
         } );
         Log.v("!!!!!!!!!!!!!!!!","setLine");
@@ -499,5 +525,11 @@ public class InfoAtmosActivity extends AppCompatActivity {
         mo3Value.setBackgroundColor( Color.TRANSPARENT );
         mo3Value.setTextColor( Color.parseColor("#000000") );
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        theValue = "pm10Value";
+        super.onBackPressed();
     }
 }

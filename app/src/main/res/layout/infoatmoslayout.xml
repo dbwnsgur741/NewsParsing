@@ -109,13 +109,24 @@
 
     </LinearLayout>
 
+
     <ImageView
         android:id="@+id/atmos_image"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="150dp"
         android:layout_centerHorizontal="true"
-        android:background="@drawable/smile"
         android:layout_width="150dp"
         android:layout_height="150dp" />
+
+    <TextView
+        android:id="@+id/atmos_textview"
+        android:layout_centerHorizontal="true"
+        android:text="좋음"
+        android:textColor="#000000"
+        android:fontFamily="@font/seoulhangangcb"
+        android:textSize="24sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="320dp"/>
 
     <LinearLayout
         android:layout_marginTop="400dp"
@@ -227,18 +238,21 @@
 
     </com.github.mikephil.charting.charts.LineChart>
 
+
     <TextView
+        android:layout_centerHorizontal="true"
         android:id="@+id/desc_txt"
         android:layout_marginTop="800dp"
-        android:text="  환경부 미세먼지 예보기준[ PM2.5 (㎍/㎥) ]  "
+        android:text="*환경부 미세먼지 예보(PM2.5기준)"
         android:fontFamily="@font/seoulhangangcb"
-        android:textColor="#000000"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="15sp"
-        android:layout_marginBottom="5dp"/>
+        android:layout_marginBottom="10dp"/>
 
     <LinearLayout
+        android:background="@drawable/box_rectangle_right"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="830dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
