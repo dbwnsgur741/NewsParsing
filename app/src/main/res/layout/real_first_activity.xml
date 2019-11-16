@@ -106,7 +106,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/seoulhangangceb"
-                android:text="네이버 백과사전 api"
+                android:text="네이버 백과사전 제공 API"
                 android:textColor="#000000"
                 android:textSize="12sp" />
 
@@ -208,7 +208,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/seoulhangangcb"
-                android:text="실시간 대기농도"
+                android:text="실시간 대기농도보기"
                 android:textColor="#000000"
                 android:textSize="25sp" />
 
@@ -277,7 +277,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/seoulhangangceb"
-            android:text="개발중...."
+            android:text="OpenWeatherMap 제공 API"
             android:textColor="#000000"
             android:textSize="12sp" />
 

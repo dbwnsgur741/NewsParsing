@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.XAxis;
@@ -305,6 +306,14 @@ public class InfoAtmosActivity extends AppCompatActivity {
                     Element element = (Element) node;
 
                     NodeList dataTime = element.getElementsByTagName( "dataTime" );
+
+                    // TODO : 예외처리 해야됨 !!!!!!!!!!!
+
+                    if(dataTime == null){
+                        Toast.makeText( getApplicationContext(),"관측소 정보를 받아올 수 없습니다. \n 잠시후에 다시 이용해주세요.",Toast.LENGTH_LONG ).show();
+                        finish();
+                    }
+
                     mDataTime = "관측 시간  \n" + dataTime.item( 0 ).getChildNodes().item( 0 ).getNodeValue();
                     Log.d("!!!!!!!!",mDataTime);
 

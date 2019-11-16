@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Crawaling</string>
+    <string name="app_name">미세먼지 마스터</string>
 
     <string name="대기오염정의">대기중에 인위적으로 배출된 오염물이 한가지 또는 그 이상 존재하여, 오염물질의 양,
 농도 및 지속시간이 어떤 지역의 불특정 다수에게 불쾌감을 일으키거나 해당지역에 공중보건상 위해를

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    android:id="@+id/slidingPanel"
+    android:layout_width="200dp"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg"
+    android:orientation="vertical"
+    android:layout_gravity="right"
+    android:visibility="visible"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/seoulhangangceb"
+        android:textAlignment="center"
+        android:text="용어 사전"
+        android:textSize="30dp"
+        android:textColor="#000000" />
+
+    <View
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="@drawable/toolbar_dropshadow" />
+
+    <TextView
+        android:background="#6666FF"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:fontFamily="@font/seoulhangangceb"
+        android:textAlignment="center"
+        android:text="환경 오염"
+        android:textSize="24sp"
+        android:textColor="#ffffff" />
+
+    <View
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="@drawable/toolbar_dropshadow" />
+
+    <android.support.v7.widget.AppCompatSpinner
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:fontFamily="@font/seoulhangangceb"
+        android:textAlignment="center"
+        android:text="수질 오염"
+        android:textSize="24sp"
+        android:textColor="#000000" />
+
+</LinearLayout>
