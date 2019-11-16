@@ -266,7 +266,7 @@ public class InfoAtmosActivity extends AppCompatActivity {
                     NodeList nodeList1 = element.getElementsByTagName( "tm" );
                     staionName = nodeList.item( 0 ).getChildNodes().item( 0 ).getNodeValue();
                     farFrom = nodeList1.item( 0 ).getChildNodes().item( 0 ).getNodeValue();
-                    Log.v("!!!!!!!!!!!!!!!!","getStation");
+                    Log.v("!!!!!!!!!!!!!!!!",staionName);
                     getDailyInfo();
 
                 } catch (Exception e) {
@@ -329,9 +329,13 @@ public class InfoAtmosActivity extends AppCompatActivity {
                     Log.d("미세먼지",mPm10Value);
 
                     NodeList pm25Value = element.getElementsByTagName( "pm25Value" );
-                    pm25temp = Integer.parseInt(pm25Value.item( 0 ).getChildNodes().item( 0 ).getNodeValue());
-                    mPm25Value = "미세먼지(PM2.5)  \n" + pm25Value.item( 0 ).getChildNodes().item( 0 ).getNodeValue()+"(㎍/㎥)";
-
+                    if(pm25Value.item( 0 ).getChildNodes().item( 0 ).getNodeValue().equals( "-" )){
+                        pm25temp = 15;
+                    }else{
+                        pm25temp = Integer.parseInt(pm25Value.item( 0 ).getChildNodes().item( 0 ).getNodeValue());
+                    }
+                    mPm25Value = "미세먼지(PM2.5)  \n" + pm25temp +"(㎍/㎥)";
+                    Log.d("미세먼지",mPm25Value);
 
                     NodeList nodeList = document.getElementsByTagName( "dataTime" );
                     NodeList nodeList1 = document.getElementsByTagName( theValue );
@@ -358,6 +362,7 @@ public class InfoAtmosActivity extends AppCompatActivity {
                     setLineChart(station_dataTime,station_theValue);
 
                 } catch (Exception e) {
+
                     e.printStackTrace();
                 }
             }
@@ -436,15 +441,15 @@ public class InfoAtmosActivity extends AppCompatActivity {
 
                 // 분기 나눠서 ... mPm25Value
 
-                if(0 < pm25temp && pm25temp < 16){
+                if(0 <= pm25temp && pm25temp <= 15){
                     atmos_textview.setText( "좋음" );
                     imageView.setImageResource( R.drawable.verygood );
                 }
-                else if(16 < pm25temp && pm25temp < 31 ){
+                else if(16 <= pm25temp && pm25temp <= 30 ){
                     atmos_textview.setText( "보통" );
                     imageView.setImageResource( R.drawable.good );
                 }
-                else if(30 < pm25temp && pm25temp < 76){
+                else if(31 <= pm25temp && pm25temp <= 75){
                     atmos_textview.setText( "나쁨" );
                     imageView.setImageResource( R.drawable.bad_icon );
                 }

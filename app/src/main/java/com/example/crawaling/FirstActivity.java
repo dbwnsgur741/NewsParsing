@@ -30,6 +30,8 @@ import java.util.Locale;
 
 public class FirstActivity extends AppCompatActivity {
 
+    private static boolean loading = true;
+
     private LinearLayout linearLayout_dictionary;
     private LinearLayout linearLayout_news;
     private LinearLayout linearLayout_atmos;

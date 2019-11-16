@@ -76,33 +76,7 @@
         android:layout_height="wrap_content"
         android:text="@string/토양오염정의"/>
 
-    <TextView
-        android:layout_marginTop="10dp"
-        android:layout_alignBottom="@+id/tv1"
-        android:id="@+id/tv2"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:textSize="24sp"
-        android:fontFamily="@font/seoulhangangceb"
-        android:textColor="#000000"
-        android:lineSpacingExtra="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/토양오염정의"/>
 
-        <TextView
-            android:id="@+id/tv3"
-            android:layout_alignBottom="@+id/tv2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:fontFamily="@font/seoulhangangceb"
-            android:lineSpacingExtra="10dp"
-            android:text="@string/토양오염정의"
-            android:textColor="#000000"
-            android:textSize="24sp" />
 
     </RelativeLayout>
 
