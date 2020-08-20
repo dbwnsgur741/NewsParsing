@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.crawaling">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.weather.fixyoo">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <!-- Optional : -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
+        android:name=".AppsflyerTestActivity"
+        android:debuggable="false"
         android:usesCleartextTraffic="true"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher_capstondesign"
@@ -14,49 +21,68 @@
         android:roundIcon="@mipmap/ic_launcher_capstondesign_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:networkSecurityConfig="@xml/network_security_config">
-        <activity android:name=".LoadingActivity"
+        android:networkSecurityConfig="@xml/network_security_config"
+        tools:ignore="HardcodedDebugMode">
+
+        <receiver
+            android:name="com.appsflyer.SingleInstallBroadcastReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.android.vending.INSTALL_REFERRER" />
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name="com.weather.fixyoo.LoadingActivity"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"></activity>
-        <activity android:name=".DictionaryActivity"
+
+        <activity
+            android:name="com.weather.fixyoo.DictionaryActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
         <activity
-            android:name=".WeatherActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        </activity>
+            android:name="com.weather.fixyoo.WeatherActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
         <activity
-            android:name=".LocationActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        </activity>
+            android:name="com.weather.fixyoo.LocationActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+
         <activity
-            android:name=".FirstActivity"
+            android:name="com.weather.fixyoo.FirstActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity android:name=".InfoAtmosActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:scheme="https"
+                    android:host="landingweirdhome.onelink.me"
+                    android:pathPrefix="/j0nj" />
+            </intent-filter>
         </activity>
         <activity
-            android:name=".SecondActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        </activity>
+            android:name="com.weather.fixyoo.InfoAtmosActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+        <activity
+            android:name="com.weather.fixyoo.SecondActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
 
         <activity
-            android:name=".MainActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        </activity>
+            android:name="com.weather.fixyoo.MainActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
 
         <activity
-            android:name=".WebViewActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        </activity>
+            android:name="com.weather.fixyoo.WebViewActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
 
         <activity
-            android:name=".ListViewActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        </activity>
+            android:name="com.weather.fixyoo.ListViewActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
     </application>
 
 </manifest>
